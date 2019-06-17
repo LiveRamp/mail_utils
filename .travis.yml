@@ -1,5 +1,5 @@
 language: java
-jdk: oraclejdk8
+jdk: openjdk10
 env:
   global:
   - secure: YRCLzXcxlUfYwp3UPCW/zjTTMyqvbYaGOsKqKCbBK07fuumbgx3fmsQoGwOlPXYbHkvjeiapYUmxH5js5KjnA9PZrmzhAJ3pRu3WzrKEQsKUKXRrs5xx5PnZFrVEfyKzDkN+HxEuYck9r9bS1cOUonhpvbA0G1RaDJZKgKfEdvn9F8j+e+h3Pgt/vWwMA4S+5DRbvaqL/i9UTCbnGHU8NykTqE1Wq498xc9cPQSXE0Io8A5cUNEc86ULOydCpEznL1+3S8+Jnx3SodEKeRGh+t5bSvtLQY4UAZNllUrPysZ1YPiauDYjt08T67BaRY4P7WD2MDhgo0xBkkfdgbIQCrDtxWXePPQOlNtIspQMCLfHLVohR7mw83q+8URt4kjXsFyIZLFNsGfeXNDeAFMlLEGyhvKWArYKFdleku+3xnVfQbQyDTACDZPLEYlGpCHOqSa1PdClePyOaJxHW0ZPqqP9L6edp7UnOQOocqIcD7zWuP//bNiLT819ImXtBfyuLWz2XgPk71LJWu83IePRgPUhdnoL3cAv8BMbGEfHPWrh+KPNNDirselcPVyndP5cC/5im+p9CVEhlHfldi2h7U4QjjCjMYhcmHFdyMpFUrSVEEnPtgdTQLHEWlqthJUN9zo1HmGFTlhod8/itktiGY2gAAJm/6+4Qoi0UOAGxe8=
@@ -9,9 +9,19 @@ env:
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_b163c1940e30_key -iv $encrypted_b163c1940e30_iv
   -in .travis/gpg.asc.enc -out .travis/gpg.asc -d
+install: "/bin/true"
+script:
+- "./test"
 deploy:
+-
   skip_cleanup: true
-  on:
-    branch: master
   provider: script
   script: ./deploy
+  on:
+    branch: master
+-
+  skip_cleanup: true
+  provider: script
+  script: ./deploy
+  on:
+    tags: true
