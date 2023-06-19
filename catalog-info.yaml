@@ -1,0 +1,10 @@
+# BEGIN TERRAFORM MANAGED BLOCK
+"apiVersion": "backstage.io/v1alpha1"
+"kind": "Location"
+"metadata":
+  "annotations":
+    "github.com/project-slug": "LiveRamp/mail_utils"
+  "name": "mail_utils"
+  "tags": []
+"spec": {}
+# END TERRAFORM MANAGED BLOCK
